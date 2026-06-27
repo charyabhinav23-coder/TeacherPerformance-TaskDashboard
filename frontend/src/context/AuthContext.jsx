@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { authAPI } from '../services/api';
+import { authAPI, getBaseURL } from '../services/api';
 import { mockAccounts } from '../data/mockData';
 
 const AuthContext = createContext();
@@ -19,7 +19,8 @@ export const AuthProvider = ({ children }) => {
         return;
       }
       try {
-        const response = await fetch('http://localhost:5001/api/health', { method: 'GET' });
+        const baseUrl = getBaseURL();
+        const response = await fetch(`${baseUrl}/health`, { method: 'GET' });
         if (response.ok) {
           setIsOffline(false);
         } else {

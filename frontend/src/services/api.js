@@ -1,7 +1,19 @@
 import axios from 'axios';
 
+export const getBaseURL = () => {
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
+  if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+    if (window.location.port === '5173' || window.location.port === '5174') {
+      return 'http://localhost:5001/api';
+    }
+  }
+  return '/_/backend/api';
+};
+
 const API = axios.create({
-  baseURL: 'http://localhost:5001/api',
+  baseURL: getBaseURL(),
   timeout: 10000,
 });
 

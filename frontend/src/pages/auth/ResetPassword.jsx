@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { Lock, Eye, EyeOff, CheckCircle2, AlertCircle } from 'lucide-react';
 import GlassCard from '../../components/GlassCard';
+import { getBaseURL } from '../../services/api';
 import '../../index.css';
 
 const ResetPassword = () => {
@@ -28,7 +29,7 @@ const ResetPassword = () => {
 
     const validateToken = async () => {
       try {
-        const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+        const baseUrl = getBaseURL();
         const response = await fetch(`${baseUrl}/auth/verify-reset-token?token=${token}&email=${encodeURIComponent(email)}`);
         
         if (!response.ok) {
@@ -55,7 +56,7 @@ const ResetPassword = () => {
     setIsLoading(true);
 
     try {
-      const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
+      const baseUrl = getBaseURL();
       const response = await fetch(`${baseUrl}/auth/reset-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
