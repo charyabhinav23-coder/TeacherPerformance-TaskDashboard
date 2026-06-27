@@ -29,7 +29,12 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    if (!email || !password) {
+    
+    // Fallback for password managers bypassing React state
+    const formEmail = e.target.email?.value || email;
+    const formPassword = e.target.password?.value || password;
+
+    if (!formEmail || !formPassword) {
       error('Fields Missing', 'Please fill in both email and password.');
       setIsError(true);
       setTimeout(() => setIsError(false), 500);
@@ -39,7 +44,7 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const res = await login(email, password);
+      const res = await login(formEmail, formPassword);
       if (res && res.success) {
         success('Login Successful', `Welcome back, ${res.name}!`);
         setIsLoading(false);
@@ -157,6 +162,8 @@ const Login = () => {
               <div style={{ position: 'relative' }}>
                 <input
                   type="email"
+                  name="email"
+                  autoComplete="email"
                   className="input-glass"
                   placeholder="name@email.com"
                   value={email}
@@ -173,6 +180,8 @@ const Login = () => {
               <div style={{ position: 'relative' }}>
                 <input
                   type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  autoComplete="current-password"
                   className="input-glass"
                   placeholder="••••••••"
                   value={password}

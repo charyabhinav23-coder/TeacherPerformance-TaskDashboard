@@ -52,6 +52,12 @@ const getTeacherDashboard = async (req, res, next) => {
         : 100;
     }
 
+    let assignedClassName = 'None';
+    if (classroomId) {
+      const classroom = await prisma.classroom.findUnique({ where: { id: classroomId } });
+      if (classroom) assignedClassName = classroom.name;
+    }
+
     res.status(200).json({
       success: true,
       message: 'Teacher dashboard stats fetched successfully',
@@ -59,7 +65,7 @@ const getTeacherDashboard = async (req, res, next) => {
         studentCount,
         pendingTasksCount,
         todayAttendanceRate,
-        assignedClass: teacher.classroomId ? teacher.classroomId : 'None'
+        assignedClass: assignedClassName
       }
     });
   } catch (error) {

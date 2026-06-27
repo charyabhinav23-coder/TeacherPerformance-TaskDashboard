@@ -34,10 +34,7 @@ const loginUser = async (req, res, next) => {
       return res.status(401).json({ success: false, message: 'User account is deactivated' });
     }
 
-    // Email verification check
-    if (!user.isEmailVerified) {
-      return res.status(403).json({ success: false, message: 'Please verify your email address before logging in' });
-    }
+    // Email verification check removed as per user request
 
     // Account lockout check
     if (user.lockoutUntil && new Date() < user.lockoutUntil) {

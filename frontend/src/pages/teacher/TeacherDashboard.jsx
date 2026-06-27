@@ -142,7 +142,7 @@ const TeacherDashboard = () => {
 
   const widgets = [
     { title: 'Class Size', value: stats.studentCount, label: stats.assignedClass || 'My Classroom', icon: Users, color: 'var(--primary)' },
-    { title: 'Attendance Rate', value: stats.todayAttendanceRate, label: 'Synced with DB', icon: CheckCircle2, color: 'var(--success)' },
+    { title: 'Attendance Rate', value: stats.todayAttendanceRate, label: 'Today', icon: CheckCircle2, color: 'var(--success)' },
     { title: 'Active Tasks', value: stats.pendingTasksCount, label: 'Pending Tasks', icon: Clock, color: 'var(--warning)' },
     { title: 'Pending Logs', value: 2, label: 'Logs due by 4 PM', icon: FileText, color: 'var(--accent)' }
   ];

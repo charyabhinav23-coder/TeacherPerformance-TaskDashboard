@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
         return;
       }
       try {
-        const response = await fetch('http://localhost:5000/api/health', { method: 'GET' });
+        const response = await fetch('http://localhost:5001/api/health', { method: 'GET' });
         if (response.ok) {
           setIsOffline(false);
         } else {

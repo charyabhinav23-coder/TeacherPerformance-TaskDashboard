@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNotifications } from '../../context/NotificationContext';
 import { Megaphone, Plus, Calendar, User, Trash2, X, AlertCircle, RefreshCw, Clock } from 'lucide-react';
 import GlassCard from '../../components/GlassCard';
+import { mockAnnouncements } from '../../data/mockData';
 import { adminAPI, teacherAPI, parentAPI } from '../../services/api';
 import '../../styles/pages.css';
 
@@ -30,7 +31,12 @@ const Announcements = () => {
       setAnnouncements(response.data?.data || []);
     } catch (err) {
       console.error('Failed to load announcements:', err);
-      setErrorState('Unable to connect to the server. Please try again later or contact your system administrator.');
+      if (import.meta.env.VITE_USE_MOCK_DATA === 'true') {
+        console.warn('Using mock fallback for announcements');
+        setAnnouncements(mockAnnouncements);
+      } else {
+        setErrorState('Unable to connect to the server. Please try again later or contact your system administrator.');
+      }
     } finally {
       setIsLoading(false);
     }

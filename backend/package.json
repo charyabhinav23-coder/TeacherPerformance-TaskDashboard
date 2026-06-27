@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node node_modules/nodemon/bin/nodemon.js server.js",
+    "start": "node server.js",
+    "dev": "nodemon server.js",
     "seed": "node prisma/seed.js",
     "seed:demo": "node prisma/seed.js --mode demo",
     "seed:add-sample": "node prisma/seed.js --mode add-sample",
-    "prisma:migrate": "node node_modules/prisma/build/index.js migrate dev",
-    "prisma:studio": "node node_modules/prisma/build/index.js studio",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
